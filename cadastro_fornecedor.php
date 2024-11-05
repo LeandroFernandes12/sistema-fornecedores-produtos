@@ -87,68 +87,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
     // Prepara a query SQL para inserção ou atualização
-if ($id) {
-    // Se o ID existe, é uma atualização
-    $sql = "UPDATE fornecedores SET nome='$nome', email='$email', telefone='$telefone'";
-    if ($imagem) {
-        $sql .= ", imagem='$imagem'";
-    }
-    $sql .= " WHERE id='$id'";
-    $mensagem = "Fornecedor atualizado com sucesso!";
-} else {
-    // Se não há ID, é uma nova inserção
-    $sql = "INSERT INTO fornecedores (nome, email, telefone, imagem) VALUES ('$nome', '$email', '$telefone', '$imagem')";
-    $mensagem = "Fornecedor cadastrado com sucesso!";
-}
-
-// Executa a query e verifica se houve erro
-if ($conn->query($sql) !== TRUE) {
-    $mensagem = "Erro: " . $conn->error;
-}
-
-// Verifica se foi solicitada a exclusão de um fornecedor
-if (isset($_GET['delete_id'])) {
-    $delete_id = $_GET['delete_id'];
-
-    // Verifica se o fornecedor tem produtos cadastrados
-    $check_produtos = $conn->query("SELECT COUNT(*) as count FROM produtos WHERE fornecedor_id = '$delete_id'")->fetch_assoc();
-
-    if ($check_produtos['count'] > 0) {
-        $mensagem = "Não é possível excluir este fornecedor pois existem produtos cadastrados para ele.";
-    } else {
-        $sql = "DELETE FROM fornecedores WHERE id='$delete_id'";
-        if ($conn->query($sql) === TRUE) {
-            $mensagem = "Fornecedor excluído com sucesso!";
-        } else {
-            $mensagem = "Erro ao excluir fornecedor: " . $conn->error;
+    if ($id) {
+        // Se o ID existe, é uma atualização
+        $sql = "UPDATE fornecedores SET nome='$nome', email='$email', telefone='$telefone'";
+        if ($imagem) {
+            $sql .= ", imagem='$imagem'";
         }
+        $sql .= " WHERE id='$id'";
+        $mensagem = "Fornecedor atualizado com sucesso!";
+    } else {
+        // Se não há ID, é uma nova inserção
+        $sql = "INSERT INTO fornecedores (nome, email, telefone, imagem) VALUES ('$nome', '$email', '$telefone', '$imagem')";
+        $mensagem = "Fornecedor cadastrado com sucesso!";
     }
-}
 
-// Busca todos os fornecedores para listar na tabela
-$fornecedores = $conn->query("SELECT * FROM fornecedores");
-
-// Se foi solicitada a edição de um fornecedor, busca os dados dele
-$fornecedor = null;
-
-// Prepara a query SQL para inserção ou atualização
-if ($id) {
-    // Se o ID existe, é uma atualização
-    $sql = "UPDATE fornecedores SET nome='$nome', email='$email', telefone='$telefone'";
-    if ($imagem) {
-        $sql .= ", imagem='$imagem'";
+    // Executa a query e verifica se houve erro
+    if ($conn->query($sql) !== TRUE) {
+        $mensagem = "Erro: " . $conn->error;
     }
-    $sql .= " WHERE id='$id'";
-    $mensagem = "Fornecedor atualizado com sucesso!";
-} else {
-    // Se não há ID, é uma nova inserção
-    $sql = "INSERT INTO fornecedores (nome, email, telefone, imagem) VALUES ('$nome', '$email', '$telefone', '$imagem')";
-    $mensagem = "Fornecedor cadastrado com sucesso!";
-}
-
-// Executa a query e verifica se houve erro
-if ($conn->query($sql) !== TRUE) {
-    $mensagem = "Erro: " . $conn->error;
 }
 
 // Verifica se foi solicitada a exclusão de um fornecedor

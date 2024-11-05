@@ -1,3 +1,4 @@
+<!-- 2ª Digitação (Aqui) -->
 <?php
 // Inicia uma sessão para armazenar informações do usuário durante a navegação.
 session_start();
@@ -30,26 +31,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 }
 ?>
 
-<!DOCTYPE html>
+ <!DOCTYPE html>
  <html lang="pt-br">
  <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
  </head>
  <body>
     <div class="container" style="width: 400px;">
         <h2>Login</h2>
         <form method="post" action="">
             <label for="usuario">Usuário:</label>
-            <input type="text" name="usuário" required>
-            <label for="senha">Senha</label>
+            <input type="text" name="usuario" required>
+            <label for="senha">Senha:</label>
             <input type="password" name="senha" required>
-            <buttom type="submit" style="margin-bottom: 30px;" >Entrar<buttom/>
-
+            <button type="submit" style="margin-bottom: 30px;">Entrar</button>
+            <!-- Exibe a mensagem de erro, se houver. -->
             <?php if (isset($error)) echo "<p class='message error'>$error</p>"; ?>
         </form>
-    </div>    
+    </div>
+    
  </body>
  </html>

@@ -1,3 +1,4 @@
+<!-- 4ª Digitação (Aqui) -->
 <?php include('valida_sessao.php'); ?>
 <!-- Inclui o script para validar a sessão do usuário -->
 <?php include('conexao.php'); ?>
@@ -30,20 +31,22 @@ $produtos = $conn->query("
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listagem de produto</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Link para o arquivo de estilização CSS -->
 </head>
 <body>
     <div class="container">
         <h2>Listagem de produtos</h2>
 
+        <!-- Exibe a mensagem de feedback (sucesso ou erro) após uma ação -->
         <?php
         if (isset($mensagem)) {
             echo "<p class='message " . ($conn->error ? "error" : "sucess")  .  "'>$mensagem</p?";
         }
         ?>
 
+        <!-- Tabela de exibição dos produtos cadastrados  -->
         <table>
             <tr>
                 <th>ID</th>
@@ -54,7 +57,7 @@ $produtos = $conn->query("
                 <th>Imagem</th>
                 <th>Ações</th>
             <tr>
-                
+       <!-- Loop para exibir cada produto retonado da consulta  -->
       <?php while ($row = $produtos->fetch_assoc()): ?>
         <tr>
                 <th><?php echo $row['id'];?></th>
@@ -63,6 +66,7 @@ $produtos = $conn->query("
                 <th><?php echo $row['preco'];?></th>
                 <th><?php echo $row['fornecedor_nome'];?></th>
                 
+            <!-- Links para editar ou excluir o produto  -->
             <td>
                 <?php if ($row['imagem']): ?>
                     <img src="<?php echo $row['imagem']; ?>" alt="Imagem do produto" style="max-width: 100px;">
@@ -70,7 +74,8 @@ $produtos = $conn->query("
                     Sem Imagem
                 <?php endif; ?>
                 </td>
-               
+
+               <!-- Botão para voltar á página principal  --> 
                <td> 
                 <a href="cadastro_produto.php?edit_id=<?php echo $row['id']; ?>">Editar</a>
                 <a href="?delete_id=<?php echo $row['id']; ?>" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
@@ -83,7 +88,5 @@ $produtos = $conn->query("
                 </div>    
 
                 
-
-    
 </body>
 </html>
